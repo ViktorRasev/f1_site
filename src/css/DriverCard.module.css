@@ -1,0 +1,14 @@
+
+
+.driverCard{ 
+    margin: .5rem;
+    align-items: center;
+}
+
+.link { 
+    text-decoration: none;
+    color: #fff;
+}
+.link:hover { 
+    color: #fff;
+}
