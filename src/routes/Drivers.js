@@ -22,7 +22,9 @@ export default function Drivers() {
     );
   }, []);
 
-
+const handleOnTouchEnd = (e) => { 
+    setInputYears(e.target.textContent)
+}
   return (
     <>
       <Container>
@@ -33,7 +35,7 @@ export default function Drivers() {
           <Slider
             className={styles.slider}              
             onMouseDown={handleMouseUp}
-            // onTouchEnd={handleMouseUp}
+            onTouchEnd={handleOnTouchEnd}
             defaultValue={currentYear}
             valueLabelDisplay="auto"
             min={1950}
