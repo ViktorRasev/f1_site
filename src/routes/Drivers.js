@@ -33,7 +33,7 @@ export default function Drivers() {
           <Slider
             className={styles.slider}              
             onMouseDown={handleMouseUp}
-            onTouchEnd={handleMouseUp}
+            // onTouchEnd={handleMouseUp}
             defaultValue={currentYear}
             valueLabelDisplay="auto"
             min={1950}
