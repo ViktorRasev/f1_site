@@ -8,7 +8,7 @@ export default function DriverCard() {
   });
 
   useEffect(() => {
-    fetch(`http://ergast.com/api/f1/2022/drivers.json?=myParser`, {
+    fetch(`https://ergast.com/api/f1/2022/drivers.json?=myParser`, {
       method: "GET",
     }).then(async (response) => {
       const responseJson = await response.json();
