@@ -6,7 +6,7 @@ import styles from "../css/Drivers.module.css"
 
 
 export default function Drivers() {
-  const [inputYear, setInputYears] = useState(null);
+  const [inputYear, setInputYears] = useState(false);
 
   const date = new Date();
   const currentYear = date.getFullYear();

@@ -10,7 +10,7 @@ export default function DriverCard(props) {
 
   useEffect(() => {
     fetch(
-      `https://ergast.com/api/f1/${props.inputYear ?? year}/drivers.json?=myParser`,
+      `https://ergast.com/api/f1/${props.inputYear ? props.inputYear: new Date().getFullYear()}/drivers.json?=myParser`,
       {
         method: "GET",
       }
