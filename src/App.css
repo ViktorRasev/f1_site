@@ -1,0 +1,8 @@
+html, #root {
+    background-color:#15151e;
+}
+
+
+.css-187mznn-MuiSlider-root { 
+    color:#dc3545 !important; /* danger */
+}

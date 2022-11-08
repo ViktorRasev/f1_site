@@ -2,7 +2,19 @@
 
 .driverCard{ 
     margin: .5rem;
-    align-items: center;
+    background-color: #343440a6;
+    color: #fff;
+}
+
+.cardTitle{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.driverNumber { 
+    color: #dc3545;  /* danger */
+    font-style: italic;
 }
 
 .link { 

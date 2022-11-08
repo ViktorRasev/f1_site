@@ -1,26 +1,49 @@
-import DriverCard from "../components/DriverCard"
-import Slider from '@mui/material/Slider';
-import { Container } from "react-bootstrap";
+import { useState, useCallback } from "react";
+import DriverCard from "../components/DriverCard";
+import Slider from "@mui/material/Slider";
+import { Container, Card } from "react-bootstrap";
+import styles from "../css/Drivers.module.css"
 
 
-// todo Slider or select input for seassos (years)
+export default function Drivers() {
+  const [inputYear, setInputYears] = useState(null);
 
-export default function Drivers() { 
-    return (
-        <>
-        <Container>
-       <Slider
-  aria-label="Temperature"
-//   defaultValue={30}
-//   getAriaValueText={valuetext}
-  valueLabelDisplay="auto"
-//   step={10}
-  marks
-  min={1950}
-  max={2022}
-/>
-        <DriverCard />
-        </Container>
-        </>
-    )
+  const date = new Date();
+  const currentYear = date.getFullYear();
+
+  // This takes care of mouseUp event even if mouse cursor is no longer hovering over element (Slider)
+  const handleMouseUp = useCallback((e) => {
+    document.addEventListener(
+      "mouseup",
+      () => {
+        setInputYears(e.target.textContent);
+      },
+      { once: true }
+    );
+  }, []);
+
+
+  return (
+    <>
+      <Container>
+        <Card className={styles.sliderCard}>
+          <Card.Body className="text-center">
+            <Card.Title>Select season</Card.Title>
+         
+          <Slider
+            className={styles.slider}              
+            onMouseDown={handleMouseUp}
+            onTouchEnd={handleMouseUp}
+            defaultValue={currentYear}
+            valueLabelDisplay="auto"
+            min={1950}
+            max={currentYear}
+          />
+           </Card.Body>
+        </Card>
+        <DriverCard inputYear={inputYear} />
+      </Container>
+    </>
+  );
 }
+
