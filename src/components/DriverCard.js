@@ -2,6 +2,25 @@ import { useEffect, useState } from "react";
 import { Row, Col, Button, Card, Container } from "react-bootstrap";
 import styles from "../css/DriverCard.module.css";
 
+// This takes nationality of the drivers from API response and return country code needed for flag images
+// example: Dutch => nl, Italian => it
+const getCountryFromNationality = (nationality) => {
+  let CountryQuery = require("country-query");
+  let country = CountryQuery.findByDemonym(nationality);
+  let result;
+  if (country) {
+    if (country.length >= 2) {
+      country.forEach((singleCountry) => {
+        if (singleCountry.independent) {
+          result = singleCountry;
+        }
+      });
+    } else {
+      result = country;
+    }
+    return result.cca2.toLowerCase();
+  }
+};
 
 export default function DriverCard(props) {
   const [driversData, setDriversData] = useState({
@@ -10,7 +29,9 @@ export default function DriverCard(props) {
 
   useEffect(() => {
     fetch(
-      `https://ergast.com/api/f1/${props.inputYear ? props.inputYear: new Date().getFullYear()}/drivers.json?=myParser`,
+      `https://ergast.com/api/f1/${
+        props.inputYear ? props.inputYear : new Date().getFullYear()
+      }/drivers.json?=myParser`,
       {
         method: "GET",
       }
@@ -41,20 +62,33 @@ export default function DriverCard(props) {
         return (
           <Col sm={12} md={6} lg={4} xxl={3} key={singleDriver.driverId}>
             <Card className={styles.driverCard}>
-              {/* <Card.Img variant="bottom" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/verstappen_%2851383514844%29_%28cropped%29.jpg/375px-Alex_albon_%2851383514844%29_%28cropped%29.jpg" /> */}
               <Card.Body>
-                <Card.Title className={styles.cardTitle}>
-                  <span>{`${singleDriver.givenName} ${singleDriver.familyName}`}</span>
-                 <span className={styles.driverNumber}>{singleDriver.permanentNumber && `${singleDriver.permanentNumber}`}</span>
-                 
-                  
-                  </Card.Title>
+                <Card.Title className={styles.card_title}>
+                  <div className={styles.flag_name}>
+                    {singleDriver.nationality !== "Rhodesian" && (
+                      <img
+                        className={styles.flag}
+                        src={`https://flagcdn.com/${getCountryFromNationality(
+                          singleDriver.nationality
+                        )}.svg`}
+                        alt={`${singleDriver.nationality} flag`}
+                      />
+                    )}
+
+                    {`${singleDriver.givenName} ${singleDriver.familyName}`}
+                  </div>
+                  <div className={styles.driver_number}>
+                    {singleDriver.permanentNumber &&
+                      `${singleDriver.permanentNumber}`}
+                  </div>
+                </Card.Title>
+
                 <Card.Text>{`Nationality: ${singleDriver.nationality}`}</Card.Text>
                 <Card.Text></Card.Text>
                 <Card.Text>{`age: ${currentAge}`}</Card.Text>
                 <Button variant="danger">
                   <a href={singleDriver.url} className={styles.link}>
-                   Wiki
+                    Wiki
                   </a>
                 </Button>
               </Card.Body>
@@ -67,7 +101,7 @@ export default function DriverCard(props) {
 
   return (
     <Container>
-   <Row>{getDriverList()}</Row>
+      <Row>{getDriverList()}</Row>
     </Container>
   );
 }
