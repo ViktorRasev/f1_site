@@ -6,13 +6,23 @@
     color: #fff;
 }
 
-.cardTitle{
+.card_title{
     display: flex;
     justify-content: space-between;
     
 }
+.flag_name { 
+    display: flex;
+    align-items: center;
 
-.driverNumber { 
+}
+.flag { 
+    width: 2.5rem;
+    height: 1.5rem;
+    margin-right: 6px;
+}
+
+.driver_number { 
     color: #dc3545;  /* danger */
     font-style: italic;
 }
