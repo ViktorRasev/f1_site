@@ -46,7 +46,7 @@ export default function Home() {
     });
   }, []);
 
-  const getAllRaces = () => {
+  const getSchedule = () => {
     switch (allRacesData.state) {
       case "pending":
         return (
@@ -97,7 +97,10 @@ export default function Home() {
         );
 
         return (
-          <>
+          <div className={styles.schedule}>
+            <div className={styles.schedule_header}>
+              <h1>{currentOrNextRound.raceName}</h1>
+            </div>
             {/*-------------------- Race----------------------- */}
             <div className={styles.col}>
               <div className={styles.date}>
@@ -173,7 +176,7 @@ export default function Home() {
                 <div>{firstPracTime}</div>
               </div>
             </div>
-          </>
+          </div>
         );
       case "error":
         return (
@@ -189,7 +192,7 @@ export default function Home() {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.row}>{getAllRaces()}</div>
+        {getSchedule()}
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" src="holder.js/100px180" />
           <Card.Body>

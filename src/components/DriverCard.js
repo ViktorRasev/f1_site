@@ -15,7 +15,6 @@ const getCountryFromNationality = (nationality) => {
           result = singleCountry;
         }
       });
-      console.log(result)
     } else {
       result = country;
     }
