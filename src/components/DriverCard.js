@@ -15,6 +15,7 @@ const getCountryFromNationality = (nationality) => {
           result = singleCountry;
         }
       });
+      console.log(result)
     } else {
       result = country;
     }
@@ -45,6 +46,7 @@ export default function DriverCard(props) {
     });
   }, [props.inputYear]);
 
+  //Current date
   const today = new Date();
   const day = String(today.getDate()).padStart(2, "0");
   const month = String(today.getMonth() + 1).padStart(2, "0");
