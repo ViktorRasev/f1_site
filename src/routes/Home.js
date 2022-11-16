@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Spinner } from "react-bootstrap";
 import styles from "../css/Home.module.css";
 
 function toMonthName(monthNumber) {
@@ -37,7 +37,6 @@ export default function Home() {
       method: "GET",
     }).then(async (response) => {
       const responseJson = await response.json();
-
       if (response.status >= 400) {
         setAllRacesData({ state: "error", error: responseJson });
       } else {
@@ -51,7 +50,7 @@ export default function Home() {
       case "pending":
         return (
           <div>
-            <h1>PENDING</h1>
+            <Spinner animation="border" variant="dark" />
           </div>
         );
 

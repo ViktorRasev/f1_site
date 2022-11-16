@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Button, Card, Container } from "react-bootstrap";
+import { Row, Col, Button, Card, Container, Spinner } from "react-bootstrap";
 import styles from "../css/DriverCard.module.css";
 
 // This takes nationality of the drivers from API response and return country code needed for flag images
@@ -97,6 +97,10 @@ export default function DriverCard(props) {
           </Col>
         );
       });
+    }else if(driversData.state === "pending"){ 
+      <div>
+          <Spinner animation="border" variant="dark" />
+      </div>
     }
   };
 
