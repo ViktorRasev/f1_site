@@ -4,7 +4,7 @@ import styles from "../css/DriverCard.module.css";
 
 // This takes nationality of the drivers from API response and return country code needed for flag images
 // example: Dutch => nl, Italian => it
-const getCountryFromNationality = (nationality) => {
+const getCountryCodeFromNationality = (nationality) => {
   let CountryQuery = require("country-query");
   let country = CountryQuery.findByDemonym(nationality);
   let result;
@@ -53,7 +53,7 @@ export default function DriverCard(props) {
   const currentDate = parseInt(`${year}${month}${day}`);
 
   const getDriverList = () => {
-    if (driversData.state === "success") {
+    if (driversData.state === "error") {
       const driversList = driversData.data.MRData.DriverTable.Drivers;
       return driversList.map((singleDriver) => {
         const calculateCurrentAge =
@@ -69,7 +69,7 @@ export default function DriverCard(props) {
                     {singleDriver.nationality !== "Rhodesian" && (
                       <img
                         className={styles.flag}
-                        src={`https://flagcdn.com/${getCountryFromNationality(
+                        src={`https://flagcdn.com/${getCountryCodeFromNationality(
                           singleDriver.nationality
                         )}.svg`}
                         alt={`${singleDriver.nationality} flag`}
@@ -97,10 +97,13 @@ export default function DriverCard(props) {
           </Col>
         );
       });
-    }else if(driversData.state === "pending"){ 
-      <div>
-          <Spinner animation="border" variant="dark" />
+    }else if(driversData.state === "success"){ 
+      return(  
+      <div className={styles.spinner}>
+          <Spinner animation="border" variant="light" />
       </div>
+       )
+      
     }
   };
 

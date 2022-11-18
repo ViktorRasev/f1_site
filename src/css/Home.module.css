@@ -46,6 +46,13 @@
   margin-left: 2rem;
 }
 
+.spinner { 
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  margin-bottom: 5rem;
+}
+
 @media (max-width: 600px) {
   .container {
     display: flex;

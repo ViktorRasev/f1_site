@@ -49,8 +49,8 @@ export default function Home() {
     switch (allRacesData.state) {
       case "pending":
         return (
-          <div>
-            <Spinner animation="border" variant="dark" />
+          <div className={styles.spinner} >
+            <Spinner animation="border" variant="light"/>
           </div>
         );
 

@@ -34,3 +34,8 @@
 .link:hover { 
     color: #fff;
 }
+
+.spinner { 
+    display: flex;
+    justify-content: center;
+}
