@@ -22,6 +22,8 @@ const getCountryCodeFromNationality = (nationality) => {
   }
 };
 
+
+
 export default function DriverCard(props) {
   const [driversData, setDriversData] = useState({
     state: "pending",
@@ -53,7 +55,7 @@ export default function DriverCard(props) {
   const currentDate = parseInt(`${year}${month}${day}`);
 
   const getDriverList = () => {
-    if (driversData.state === "error") {
+    if (driversData.state === "success") {
       const driversList = driversData.data.MRData.DriverTable.Drivers;
       return driversList.map((singleDriver) => {
         const calculateCurrentAge =
@@ -97,7 +99,7 @@ export default function DriverCard(props) {
           </Col>
         );
       });
-    }else if(driversData.state === "success"){ 
+    }else if(driversData.state === "pending"){ 
       return(  
       <div className={styles.spinner}>
           <Spinner animation="border" variant="light" />
