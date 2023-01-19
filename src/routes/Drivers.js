@@ -6,7 +6,7 @@ import styles from "../css/Drivers.module.css"
 
 
 export default function Drivers() {
-  const [inputYear, setInputYears] = useState(false);
+  const [inputYear, setInputYear] = useState(false);
 
   const date = new Date();
   const currentYear = date.getFullYear();
@@ -16,14 +16,14 @@ export default function Drivers() {
       document.addEventListener(
         "mouseup",
         () => {
-          setInputYears(e.target.textContent);
+          setInputYear(e.target.textContent);
         },
         { once: true }
       );
   }, []);
 
 const handleOnTouchEnd = (e) => { 
-    setInputYears(e.target.textContent)
+    setInputYear(e.target.textContent)
 }
   return (
     <>

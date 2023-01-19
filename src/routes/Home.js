@@ -33,7 +33,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    fetch(`https://ergast.com/api/f1/current/races.json?=myParser`, {
+    fetch(`https://ergast.com/api/f1/2023/races.json?=myParser`, { //switch back to `https://ergast.com/api/f1/current/races.json?=myParser` after api update
       method: "GET",
     }).then(async (response) => {
       const responseJson = await response.json();
@@ -60,6 +60,8 @@ export default function Home() {
           return parseInt(singleRace.date.replace(/-/g, "")) >= parseInt(currentDate);
         });
         const currentOrNextRound = roundsRemaining[0];
+        const lastRaceofSeason = allRacesData.data.MRData.RaceTable.Races.slice(-1)
+        console.log(lastRaceofSeason)
 
         //Race
         const raceDay = currentOrNextRound.date.slice(8);
