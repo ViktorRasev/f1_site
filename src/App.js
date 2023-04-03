@@ -1,12 +1,12 @@
 import "./App.css";
 import Header from "./components/Header";
-import WikiFetch from "./components/WikiFetch";
+// import WikiFetch from "./components/WikiFetch";
 
 
 function App() {
   return (
     <>
-    <WikiFetch />
+    {/*<WikiFetch />*/}
     <Header />
     </>
   )

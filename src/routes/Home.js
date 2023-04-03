@@ -27,13 +27,20 @@ const getClientTime = (date, time) => {
   return timeResult;
 };
 
+let thirdPracDay
+let thirdPracMonth
+let thirdPracTime
+let SprintDay
+let SprintMonth
+let SprintTime
+
 export default function Home() {
   const [allRacesData, setAllRacesData] = useState({
     state: "pending",
   });
 
   useEffect(() => {
-    fetch(`https://ergast.com/api/f1/2023/races.json?=myParser`, { //switch back to `https://ergast.com/api/f1/current/races.json?=myParser` after api update
+    fetch(`https://ergast.com/api/f1/current/races.json?=myParser`, { //switch back to `https://ergast.com/api/f1/current/races.json?=myParser` after api update
       method: "GET",
     }).then(async (response) => {
       const responseJson = await response.json();
@@ -61,7 +68,6 @@ export default function Home() {
         });
         const currentOrNextRound = roundsRemaining[0];
         const lastRaceofSeason = allRacesData.data.MRData.RaceTable.Races.slice(-1)
-        console.log(lastRaceofSeason)
 
         //Race
         const raceDay = currentOrNextRound.date.slice(8);
@@ -74,12 +80,22 @@ export default function Home() {
         const qualiTime = getClientTime(currentOrNextRound.Qualifying.date, currentOrNextRound.Qualifying.time);
 
         //Third Practice
-        const thirdPracDay = currentOrNextRound.ThirdPractice.date.slice(8);
-        const thirdPracMonth = toMonthName(currentOrNextRound.ThirdPractice.date.slice(5, -3)).toUpperCase();
-        const thirdPracTime = getClientTime(
-          currentOrNextRound.ThirdPractice.date,
-          currentOrNextRound.ThirdPractice.time
-        );
+          if(currentOrNextRound.ThirdPractice){
+             thirdPracDay = currentOrNextRound.ThirdPractice.date.slice(8);
+             thirdPracMonth = toMonthName(currentOrNextRound.ThirdPractice.date.slice(5, -3)).toUpperCase();
+             thirdPracTime = getClientTime(
+                currentOrNextRound.ThirdPractice.date,
+                currentOrNextRound.ThirdPractice.time
+            );
+             // Sprint
+          } else if(currentOrNextRound.Sprint){
+             SprintDay = currentOrNextRound.Sprint.date.slice(8);
+             SprintMonth = toMonthName(currentOrNextRound.Sprint.date.slice(5, -3)).toUpperCase();
+             SprintTime = getClientTime(
+                currentOrNextRound.Sprint.date,
+                currentOrNextRound.Sprint.time
+            );
+          }
 
         //Second Practice
         const secondPracDay = currentOrNextRound.SecondPractice.date.slice(8);
@@ -133,7 +149,7 @@ export default function Home() {
               </div>
             </div>
             {/*---------------------- Third Practice -----------------*/}
-            <div className={styles.col}>
+            {thirdPracDay ? <div className={styles.col}>
               <div className={styles.date}>
                 <div>
                   <h5>{thirdPracDay}</h5>
@@ -146,7 +162,23 @@ export default function Home() {
                 </div>
                 <div>{thirdPracTime}</div>
               </div>
-            </div>
+            </div> :
+                // ------------------ Sprint (if there is one) -------------
+                <div className={styles.col}>
+                  <div className={styles.date}>
+                    <div>
+                      <h5>{SprintDay}</h5>
+                    </div>
+                    <div className={styles.month}>{SprintMonth}</div>
+                  </div>
+                  <div className={styles.title_time}>
+                    <div>
+                      <h2>Sprint</h2>
+                    </div>
+                    <div>{SprintTime}</div>
+                  </div>
+                </div>
+            }
             {/*----------------- Second Practice --------------------------*/}
             <div className={styles.col}>
               <div className={styles.date}>
@@ -189,7 +221,7 @@ export default function Home() {
         return null;
     }
   };
-
+console.log(allRacesData)
   return (
     <>
       <div className={styles.container}>
