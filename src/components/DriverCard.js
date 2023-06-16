@@ -105,7 +105,6 @@ export default function DriverCard(props) {
           <Spinner animation="border" variant="light" />
       </div>
        )
-      
     }
   };
 
